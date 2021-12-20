@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * This is a class
@@ -20,11 +21,13 @@ public class Controller implements Runnable{
     private SimulationModel model;
 
 
+
+
     public Controller() {
         view = new ScreenRenderer(width, height, scale);
         model = new SimulationModel(width, height, scale);
         model.randomizeCellGrid();
-        model.createNests(10);
+        model.createNests(9);
         // Frame data
         frame = new JFrame(title);
         frame.setResizable(false);

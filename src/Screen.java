@@ -12,4 +12,6 @@ public class Screen {
     public void draw(int x, int y , int color) {
         pixels[y*width+x] = color;
     }
+
+    public void createText() {}
 }

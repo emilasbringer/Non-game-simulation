@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -13,10 +14,12 @@ public class SimulationModel {
     private int scale;
     private int startingNestSize = 6;
     private int currentNestID = 1;
-    private int totalNests = 10;
-    String[][] cellGridArray;
-    String[][] cellGridArrayTemporary;
-    ArrayList<nest> nests;
+    private JLabel textLabel;
+    private String[][] cellGridArray;
+    private String[][] cellGridArrayTemporary;
+    private nest Nest;
+    private Screen screen;
+    private ArrayList<nest> nests;
 
     public SimulationModel(int w, int h, int s) {
         this.width = w;
@@ -50,41 +53,48 @@ public class SimulationModel {
         // Clear surrounding area //
         for (int i = y-2; i < (y+startingNestSize+2) - 1; i++) {
             for (int z = x-2; z < (x+startingNestSize+2) - 1; z++) {
-                cellGridArray[z][i] = "empty";
+                if (cellGridArray[z][i].charAt(0) == 'n') {
+                    clearNestID( Integer.parseInt(String.valueOf(cellGridArray[z][i].charAt(4))) );
+                }
+                else cellGridArray[z][i] = "empty";
             }
         }
         // Render the nest //
         for (int i = y; i < (y+startingNestSize) - 1; i++) {
             for (int z = x; z < (x+startingNestSize) - 1; z++) {
                 cellGridArray[z][i] = "nest" + currentNestID;
-
             }
         }
     }
 
     public void createNests(int nestAmmount) {
         int id = this.currentNestID;
+        int nextNestX = 2;
+        int nextNestY = 2;
 
         for (int i = 0; i < nestAmmount; i++) {
-            int x = (int) Math.floor(Math.random() * (width/scale-20)) + 5;
-            int y = (int) Math.floor(Math.random() * (height/scale-20)) + 5;
-            nests.add(new nest(x, y, id));
-            this.renderNest(x,y);
-            System.out.println("x= "+x+" y="+y+" "+cellGridArray[x][y]);
-            this.currentNestID++;
+            nests.add(new nest(nextNestX, nextNestY, id, startingNestSize));
+            this.renderNest(nextNestX,nextNestY);
+            if ((nextNestX + 16) > (width/scale - 10)) {
+                nextNestX = 2;
+                nextNestY += (10 + 4);
+            }
+            else {nextNestX += 16;}
+            id++;
         }
+
+    }
+
+    public void clearNestID(int id) {
+        //
+
     }
 
     public void update() {
-        //Check if to spawn or kill next update
-        for (int y = 1; y < (height / scale) - 1; y++) {
-            for (int x = 1; x < (width / scale) - 1; x++) {
-                //
-            }
-        }
-
+      //
 
     }
+
     public String[][] getCellGridArray() {
         return cellGridArray;
     }

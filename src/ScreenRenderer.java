@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -50,15 +51,10 @@ public class ScreenRenderer extends Canvas {
     public void draw(String[][] array) {
         for (int y = 0; y < (HEIGHT/scale-1); y++) {
             for (int x = 0; x < (WIDTH/scale-1); x++) {
-                if(array[x][y].equals("food")) {
-                    screen.draw(x,y,0xFFFFFF);
-                }
-                if(array[x][y].equals("empty")) {
-                    screen.draw(x,y,0x000000);
-                }
-                if(array[x][y].charAt(0) == ('n')) {
-                    screen.draw(x, y, 0x3232C8);
-                }
+                if(array[x][y].equals("food"))      {screen.draw(x, y,0xFFFFFF);}
+                if(array[x][y].equals("empty"))     {screen.draw(x, y,0x000000);}
+                if(array[x][y].charAt(0) == ('n'))  {screen.draw(x, y,0x3232C8);}
+                if(array[x][y].equals("red"))       {screen.draw(x, y,0xff0000);}
             }
         }
     }
